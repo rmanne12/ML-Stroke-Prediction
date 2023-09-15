@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<body>
+<h1>ML-StrokePrediction Team 19</h1>
+<h3>Members: Max Yuan, Ishan Kulkarni, Rohan Manne, Rahul Komatineni, Yoon Ji Cho</h3>
+
+
+<h3>Introduction:</h3>
+<p>Strokes are a medical emergency that occur when blood flow to the brain is stalled or interrupted, preventing brain cells from receiving oxygen and nutrients. Without proper blood flow, these cells begin dying within minutes, making recognition, transportation, and immediate treatment crucial to minimizing brain damage (Johns Hopkins Medicine, 2022).</p>
+<p>According to the World Health Organization, strokes were responsible for 11% of total deaths worldwide, making it the 2nd leading cause of death in 2019 (2022). It's also a leading cause of long term adult disability among stroke survivors aged 65 years or older (Boehme et. al. 2017). Survivors are often left with complications that affect them for the rest of their lives including paralysis, weakness on one side of the body, memory loss, and speech problems.</p>
+
+
+<h3>Problem Definition:</h3>
+<p>Due to the urgent nature of this condition, prompt recognition and treatment is crucial to minimizing any debilitating effects. This can be difficult however, as symptoms are often mistaken for other conditions. Additionally, stroke symptoms present themselves differently in men and women, making it even more confusing to identify as it's occurring. Our goal is to apply machine learning models to detect whether someone is likely to have a stroke based on various medical and lifestyle factors. Early detection would allow medical professionals more time to intervene and potentially improve a patient's outcome.</p>
+
+<h3>Data Cleaning and Preprocessing:</h3>
+<p>Firstly, we removed the patient ID feature from our dataset due to the assumption that it had no bearing on patients' risk of undergoing a stroke. We decided to use one-hot encoding for the gender, work type, residence type, and smoking status features because each attribute could fall into one of many categories and we wanted to avoid using label encoding. Additionally, we used scikit-learn's StandardScalar method to center and scale age and bmi as they took on a wide range of values. All remaining features could take on one of two possible values, so we represented them as either 0's or 1's in their respective columns. </p>
+<p>There were several data points with missing values; we decided to drop all 1685 out of 5110 rows with missing values, which is not ideal because a large percentage of our observations was lost. Note however that there are several ways to handle missing values. In the future, we plan to try other data cleaning approaches to determine if there's a significant improvement in the results.</p>
+
+<h4>Original Dataset:</h4>
+<img src= "https://saneii.weebly.com/uploads/1/3/1/8/131886509/predata.png" width = "70%">
+<h4>Cleaned Dataset:</h4>
+<img src="https://saneii.weebly.com/uploads/1/3/1/8/131886509/processeddata.png" width = "70%">
+
+<p>After data cleaning, we used Principal Component Analysis (PCA) to preprocess our data. PCA is a dimensionality reduction method that transforms a dataset with a large number of features into a smaller one while retaining a high amount of information. Below is the visualization of of the data; the red dots represent patients who experienced a stroke and the blue dots represent patients who didn't.</p>
+<img src="https://saneii.weebly.com/uploads/1/3/1/8/131886509/pca.png" width = "40%">
+
+<h3>Methods:</h3>
+<p>Our project implemented 4 different Machine Learning algorithms, Random Forest, SVM, KNN, and a multi-layer perceptron Neural Network with tanh and relu. Our team analyzed and compared the results from these algorithms and determined what each algorithm is best suited for. Finally, we assessed the metrics shown for each distinct algorithm in order to understand which should be used for stroke prediction. </p>
+<p>The libraries that our team used to create the machine learning models include: Sci-Kit Learn, Pandas, NumPy, and Matplotlib. </p>
+
+
+<h3>Results and Discussion:</h3>
+
+<p>After implementing the Linear SVC, Random Forest, KNN, RELU multi-layer perceptron Neural Network, and the TANH multi-layer perceptron Neural Network models, here are the metrics: </p>
+
+<!--
+<h4>Classification Report - Random Forest:</h4>
+<img src= "https://saneii.weebly.com/uploads/1/3/1/8/131886509/classreportrf.png" width = "35%">
+<h4>Classification Report - SVC:</h4>
+<img src= "https://saneii.weebly.com/uploads/1/3/1/8/131886509/classreportsvc.png" width = "35%">
+-->
+<h4>Classification Report and Confusion Matrix - SVC:</h4>
+<img src= "https://saneii.weebly.com/uploads/1/3/1/8/131886509/svc_metrics.png" width = "35%">
+<img src= "https://saneii.weebly.com/uploads/1/3/1/8/131886509/svc.png" width = "35%">
+
+<h4>Classification Report and Confusion Matrix - Random Forest:</h4>
+<img src= "https://saneii.weebly.com/uploads/1/3/1/8/131886509/random_forest.png" width = "35%">
+<img src= "https://saneii.weebly.com/uploads/1/3/1/8/131886509/rfc.png" width = "35%">
+
+<h4>Classification Report and Confusion Matrix - KNN:</h4>
+<img src= "https://saneii.weebly.com/uploads/1/3/1/8/131886509/knn_metrics.png" width = "35%">
+<img src= "https://saneii.weebly.com/uploads/1/3/1/8/131886509/knn.png" width = "35%">
+
+<h4>Classification Report and Confusion Matrix - NN with RELU:</h4>
+<img src= "https://saneii.weebly.com/uploads/1/3/1/8/131886509/nn_relu.png" width = "35%">
+<img src= "https://saneii.weebly.com/uploads/1/3/1/8/131886509/relu.png" width = "35%">
+
+<h4>Classification Report and Confusion Matrix - NN with TANH:</h4>
+<img src= "https://saneii.weebly.com/uploads/1/3/1/8/131886509/nn_tanh.png" width = "35%">
+<img src= "https://saneii.weebly.com/uploads/1/3/1/8/131886509/tanh.png" width = "35%">
+
+
+<p>From all the positive cases, the Linear SVC model was better at predicting cases when strokes happened. The recall for the linear SVC model in the classification report for predicting that there was a stroke was .72. However, the recall for the Random Forest Model was .07, the recall for the KNN was .03, and the recall for the multi-layered perceptron Neural Networks for both tanh and relu were .03  Out of the 40 positive cases, the confusion matrix shows the Linear SVC model predicted 29 true positives, while the Random Forest only predicted 3, the KNN only predicted 1, and the relu multi-layered perceptron Neural Networks also both only predicted 1. The opposite was true when the trained models predicted when the trained models predicted when there was not a stroke on the testing data. The Random Forest Model, the KNN, and the relu multi-layered perceptron Neural Network all had a recall of 1. The tanh multi-layered perceptron Neural Network also had a high recall of .99. However, the Linear SVC Model had a recall of .74 when predicting when there wasn't a stroke.  Out of the 817 cases, the confusion matrix shows that the Linear SVC Model predicted 602 true negatives, while the Random Forest Model predicted 813, KNN predicted 816, the tanh multi-layered perceptron Neural Networks predicted 812, the relu multi-layered perceptron Neural Networks predicted 812. Therefore, Linear SVC is better at predicting true positives, while the Random Forest Model, KNN, and relu multi-layered perceptron Neural Network all had the best algorithm for predicting true negatives. While the tanh multi-layered perceptron Neural Network was lower than those 3 models, the model still had a high recall of .99 so the tanh multi-layered perceptron Neural Network was still good at predicting true negatives. </p>
+<p>The confusion matrix shows that KNN was the best at not predicting false positives on the testing data, while the Linear SVC was the worst at predicting false negatives on the testing data. Out of the 857 cases that the trained Linear SVC model tested on, the model produced 215 false positives, which means the model predicted that there would be a stroke when there wasn't. In comparison, the confusion matrix for the Random Forest Model shows that the trained KNN did not predict nearly as many False Positives on the training data as the model produced only 1 false positive. The Random Forest, RELU multi-layer perceptron Neural Network, and the TANH multi-layer perceptron Neural Network models also did not predict that many false positives with 4, 4, and 5, respectively. The precision metric in the classification report verifies these claims. The precision metric for the KNN was .50 for predicting a stroke, while the precision metric for the Linear SVC for predicting a stroke is .12. The precision metrics for the Random Forest, RELU multi-layer perceptron Neural Network, and the TANH multi-layer perceptron Neural Network models were .43, .20, and .17, respectively. Therefore, the KNN model predicts more True Positives and less False Positives than the other models. </p>
+<p>While many false positives (Type 1 Errors) are indicative of a bad model, false negatives (Type 2 Errors) are worse in the case of stroke prediction since the model would predict that a person would not be having a stroke when they are highly likely to have one. The Linear SVC model was the best at not predicting False Negatives. The Random Forest, KNN, RELU multi-layer perceptron Neural Network, and the TANH multi-layer perceptron Neural Network models predicted 37, 39, 39, and 39 False Negatives, respectively. The Linear SVC, on the other hand, only predicted 11 False Negatives. The precision metric in the classification report verifies these claims. The The precision metrics for predicting there wasn't a stroke on the Random Forest, KNN, RELU multi-layer perceptron Neural Network, and the TANH multi-layer perceptron Neural Network models were .96, .95, .95, and .95, respectively , while the precision metric for the Linear SVC for predicting there wasn't a stroke is .98. The difference may seem little, but as the model is trained on more data, these Type 2 Errors can add up over time. Therefore, Linear SVC is worse when predicting false positives, while the Random Forest Model was worse at predicting false negatives. </p>
+
+<h3>Conclusion</h3>
+<p>Because it is hard to compare models solely based on recall and precision, the F1-score is the best metric to define the model because it takes the weighted average of precision and recall. The F1-scores for predicting a stroke on the Linear SVC, Random Forest, KNN, RELU multi-layer perceptron Neural Network, and the TANH multi-layer perceptron Neural Network models were .20, .13, .05, .04, and .04, respectively. The F1-scores for predicting there was not a stroke on the Linear SVC, Random Forest, KNN, RELU multi-layer perceptron Neural Network, and the TANH multi-layer perceptron Neural Network models were .84, .98, .98, .97, and .97, respectively.  Out of all the models, Linear SVC has better precision and higher F1-score when predicting true positives and having a lower number of false positives, while KNN has better precision and higher F1-score when predicting true negatives and having a lower number of false negatives. Our analysis of machine learning algorithms on the stroke dataset is extremely important because it can prevent hundreds of deaths every year due to strokes. By examining the advantages and disadvantages of each model, we learned that a model can be better at predicting a stroke, but the same model can also be worse when predicting that there isn't a stroke (vice versa). Therefore, it is extremely important to compare different models to determine the best machine learning algorithm to save lives. </p>
+
+
+
+<h3>References</h3>
+<p>Centers for Disease Control and Prevention. (2022, April 12). <em>Know your risk for stroke.</em> Centers for Disease Control and Prevention. Retrieved October 8, 2022, from https://www.cdc.gov/stroke/risk_factors.htm
+</p>
+<p>Emon, M. U. (n.d.). <em>Performance Analysis of Machine Learning Approaches in stroke prediction.</em> IEEE Xplore. Retrieved October 8, 2022, from https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=9297525
+</p>
+<p>Johns Hopkins Medicine. (n.d.). <em>Stroke. </em>Johns Hopkins Medicine. Retrieved October 8, 2022, from https://www.hopkinsmedicine.org/health/conditions-and-diseases/stroke
+</p>
+<p>Khosla, A., Khosla, A., Cao, Y., Lin, C. C.-Y., Chiu, H.-K., Hu, J., Lee, H., & Lee, H. (2010, July 1). <em>An integrated machine learning approach to stroke prediction: Proceedings of the 16th ACM SIGKDD International Conference on Knowledge Discovery and data mining.</em> ACM Conferences. Retrieved October 8, 2022, from https://dl.acm.org/doi/pdf/10.1145/1835804.1835830
+</p>
+<p><em>Learn about stroke.</em> World Stroke Organization. (n.d.). Retrieved October 8, 2022, from https://www.world-stroke.org/world-stroke-day-campaign/why-stroke-matters/learn-about-stroke#:~:text=Globally%201%20in%204%20adults,the%20world%20have%20experienced%20stroke
+</p>
+
+<!--
+<p> Boehme, A. K., Esenwa, C., & Elkind, M. S. V. (2017, February 3). <em>Stroke risk factors, genetics, and prevention</em>. Circulation research. Retrieved October 8, 2022, from https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5321635/ </p>
+<p><em>Stroke</em>. Johns Hopkins Medicine. (n.d.). Retrieved October 8, 2022, from https://www.hopkinsmedicine.org/health/conditions-and-diseases/stroke </p>
+<p>World Health Organization. (n.d.). <em>The top 10 causes of death</em>. World Health Organization. Retrieved October 8, 2022, from https://www.who.int/news-room/fact-sheets/detail/the-top-10-causes-of-death </p>
+-->
+
+</body>
+</html>
